@@ -1,0 +1,5 @@
+C:\Users\sanch\OneDrive - UNIVERSIDAD ALICANTE\Escritorio\FileLockr.exe
+C:\Users\sanch\OneDrive - UNIVERSIDAD ALICANTE\Escritorio\FileLockr.dll
+C:\Users\sanch\OneDrive - UNIVERSIDAD ALICANTE\Escritorio\FileLockr.deps.json
+C:\Users\sanch\OneDrive - UNIVERSIDAD ALICANTE\Escritorio\FileLockr.runtimeconfig.json
+C:\Users\sanch\OneDrive - UNIVERSIDAD ALICANTE\Escritorio\FileLockr.pdb
