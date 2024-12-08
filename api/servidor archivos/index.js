@@ -8,6 +8,11 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+  console.log('Carpeta "uploads" creada');
+}
 // Configuración de Swagger
 const swaggerOptions = {
   definition: {

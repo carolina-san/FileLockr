@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileLockr")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33a1d700ad9e17ec76fbf7c9e42a15c0433ff38e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97717539a6f9d553665d50c7b21156e2567d90b9")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileLockr")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileLockr")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
