@@ -201,6 +201,7 @@ namespace practicaCys2
                 if (login.Status == "success") // Login exitoso
                 {
                     apiService.SetAuthToken(login.Token);
+                    apiService.SetAuthToken2(login.Token);
                     int id = await apiService.GetUserId(user);
                     User usuario = await apiService.GetUser(id);
                     clavesRSA[0] = usuario.publicKey;
@@ -238,6 +239,7 @@ namespace practicaCys2
                         LoginResponse registro = await apiService.CreaUser(user, passLogin, salRegistro, publicKey, encodedKey);
                         LoginResponse login2 = await apiService.LoginAsync(user, passLogin);
                         apiService.SetAuthToken(login2.Token);
+                        apiService.SetAuthToken2(login2.Token);
                         int id = await apiService.GetUserId(user);
                         User usuario = await apiService.GetUser(id);
                         Console.WriteLine("Clave privada metida en clavesRSA[1]: " + clavesRSA[1]);
@@ -370,7 +372,7 @@ namespace practicaCys2
 
                 // Crear el diccionario que contendrá la clave (Kfile) y el IV
                 
-
+                
                 string uniqueFileName = nombreArchivo + $"_{DateTime.Now:yyyy-MM-dd-HH-mm-ss}";
 
                 byte[] encryptedZip = compressAndEncrypt.CompressAndEncryptFiles(files, key, iv);

@@ -16,12 +16,15 @@ public class ApiService
     private readonly HttpClient _httpClient;
     private readonly string _baseAddress;
     private string _authToken;
+    private readonly HttpClient _httpClient2;
 
     // Constructor
     public ApiService(string baseAddress)
     {
         _httpClient = new HttpClient();
+        _httpClient2 = new HttpClient();
         _baseAddress = baseAddress.TrimEnd('/');
+
     }
 
 
@@ -161,6 +164,14 @@ public class ApiService
     {
         _authToken = token;
         _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        Console.WriteLine("Token de autenticación establecido: " + token);
+    }
+
+    public void SetAuthToken2(string token)
+    {
+        _authToken = token;
+        _httpClient2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        Console.WriteLine("Token de autenticación establecido: " + token);
     }
 
     public async Task<List<FicheroGet>> GetFicherosAsync()
@@ -208,7 +219,7 @@ public class ApiService
     {
         try
         {
-            using (var httpClient = new HttpClient())
+           
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 // Crear el contenido del archivo
@@ -220,7 +231,7 @@ public class ApiService
                 form.Add(fileContent, "file", Path.GetFileName(filePath));
 
                 // Realizar la solicitud al servidor en el puerto 3000
-                var response3000 = await httpClient.PostAsync("http://localhost:3000/upload", form);
+                var response3000 = await _httpClient2.PostAsync("http://localhost:3000/upload", form);
 
                 if (!response3000.IsSuccessStatusCode)
                 {
@@ -309,17 +320,17 @@ public class ApiService
     {
         try
         {
-            using (var httpClient = new HttpClient())
-            {
+           
+            
                 
-                var response = await httpClient.GetAsync($"http://localhost:3000/upload/{nombre}");
+                var response = await _httpClient2.GetAsync($"http://localhost:3000/upload/{nombre}");
                 response.EnsureSuccessStatusCode();
 
                 // Leer y deserializar la respuesta
                 var fileBytes = await response.Content.ReadAsByteArrayAsync(); // Lee el archivo binario
 
                 return fileBytes; // Devuelve los bytes del archivo
-            }
+            
                 
         }
         catch (Exception ex)
