@@ -29,16 +29,8 @@ namespace practicaCys2
             panelAcceso.Visible = true;
             panelCifrado.Visible = false;
 
-            string path1 = (@"../../../../../archivos");
-            string path2 = (@"../../../../../archivos_descomprimidos");
-            string path3 = (@"../../../../../claves");
+            string path3 = (@"./claves");
 
-
-            if (!Directory.Exists(path1))
-                Directory.CreateDirectory(path1);
-
-            if (!Directory.Exists(path2))
-                Directory.CreateDirectory(path2);
 
             if (!Directory.Exists(path3))
                 Directory.CreateDirectory(path3);
@@ -205,7 +197,7 @@ namespace practicaCys2
                     int id = await apiService.GetUserId(user);
                     User usuario = await apiService.GetUser(id);
                     clavesRSA[0] = usuario.publicKey;
-                    byte[] privateKeyBytes = File.ReadAllBytes(@"../../../../../claves/" + user + "/privateKey.zip");
+                    byte[] privateKeyBytes = File.ReadAllBytes(@"./claves/" + user + "/privateKey.zip");
                     Dictionary<string, byte[]> privateKeyDict = compressAndEncrypt.DecompressFiles(privateKeyBytes);
                     clavesRSA[1] = compressAndEncrypt.DecryptPrivateKeyWithAes(privateKeyDict["privateKey"], kdatos); 
                     
@@ -220,12 +212,12 @@ namespace practicaCys2
                         // Generar claves RSA
                         compressAndEncrypt.GenerateRsaKeys(out publicKey, out privateKey);
                         clavesRSA = new string[2] { publicKey, privateKey };
-                        Directory.CreateDirectory(@"../../../../../claves/" + user);
+                        Directory.CreateDirectory(@"./claves/" + user);
                         // Crear claves públicas y privadas cifradas
                         byte[] clavePublica = Encoding.UTF8.GetBytes(publicKey);
                         byte[] clavePrivada = compressAndEncrypt.EncryptPrivateKeyWithAes(clavesRSA[1], kdatos);
                         clavePrivada = compressAndEncrypt.CompressFiles(new Dictionary<string, byte[]> { { "privateKey", clavePrivada } });
-                        File.WriteAllBytes(@"../../../../../claves/" + user + "/privateKey" + ".zip", clavePrivada);
+                        File.WriteAllBytes(@"./claves/" + user + "/privateKey" + ".zip", clavePrivada);
                         string encodedKey = Convert.ToBase64String(clavePrivada);
                         Console.WriteLine("Clave privada convertida a string: " + encodedKey);
                         // Generar hash y salt para la contraseña
